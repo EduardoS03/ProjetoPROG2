@@ -1,4 +1,4 @@
-class Aluno:                                                                #Eduardo Sochodolak, Bernardo Ragugnetti Kuzer e Alexsandro Lemos 2º "B"
+class Aluno:                                                                #Eduardo Sochodolak, Bernardo Kuster Ragugnetti e Alexsandro Lemos 2º "B"
    def __init__(self,Nome,Nascimento,Sexo,Serie,CEP,CPF,Mae,Pai,Responsavel,TelResp,Necessidades):
       self.Nome = Nome
       self.Nascimento = Nascimento
@@ -215,7 +215,7 @@ def remocad(cpf):
       menu()
 
 def saiba():
-    print("Escola Profº Bernardo Lemos Sochodolak \n Um exemplo de Escola Ficticia Baseada nos 3 Nomes dos intregantes do Grupo, Alexsandro Lemos, Bernardo Ragugnetti Kuzer e Eduardo Sochodolak")
+    print("Escola Profº Bernardo Lemos Sochodolak \n Um exemplo de Escola Ficticia Baseada nos 3 Nomes dos intregantes do Grupo, Alexsandro Lemos, Bernardo Kuster Ragugnetti  e Eduardo Sochodolak")
     print("\n A Ideia é desenolver um sistema de Cadastro e Armazenamento de alunos podendo ver os cadastrados, adicionar novos alunos, editar informações e remover cadastros.")
     print("\n Uso de funções def para separar o codigo, listas para armazenar os alunos, classes para dinamizar cada um dos alunos e usos de estrutura de repetição \n Para voltar ao menu digite qualquer coisa")
   
