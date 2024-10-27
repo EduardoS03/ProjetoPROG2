@@ -27,6 +27,31 @@ def validar_cpf(cpf):
     else:
         return True
 
+def validar_cep(cep):
+    if len(cep) != 9:
+        return False
+    elif cep[5] != '-':
+        return False
+
+    else:
+        return True
+    
+def validar_tel(TelResp):
+    if len(TelResp) != 14:
+        return False
+    elif TelResp[0] != '(' or TelResp[3] != ')' or TelResp[4] != '9':
+        return False
+    
+    else :
+        return True
+    
+def validar_Nascimento(nasc):
+    if len(nasc) != 10:
+        return False
+    if nasc[2] != '/' or nasc[5] != '/' or nasc:
+        return False
+    else:
+        return True
 
 
 Aluno1 = Aluno(
@@ -42,8 +67,6 @@ Aluno1 = Aluno(
    TelResp = '(11) 98765-4321',
    Necessidades = 'Nenhuma',
 )
-
-
 Aluno2 = Aluno(
    Nome = 'Marina Angelo',
    Nascimento  =  '15/03/2015',
@@ -74,6 +97,7 @@ Aluno3 = Aluno(
 
 lista_alunos = [Aluno1, Aluno2, Aluno3]
 
+
 def menu():
      print('='*70,"\n \n \n", ' '*28, "Escola Municipal \n",' '*20, "Profº Bernardo Lemos Sochodolak \n \n")
      print(' '*26,'-'*24, "\n", ' '*25, "| 1 - Ver Cadastro     |")
@@ -90,68 +114,89 @@ def menu():
 
      elif escolha == 2:
         cpf = input('Digite o CPF do aluno que deseja editar: ')
-        
-        if validar_cpf(cpf) == False:
-            print("CPF incorreto ou não cadastrado \n Digite qualquer coisa para retornar ao menu : ")
-            vai = input()
-            print('\n \n \n \n \n')
-            menu() 
-            
-        elif validar_cpf(cpf) == True:
-        
-            novos_dados = {}
-            print('Deixe em branco os campos que não deseja alterar.')
-            nome = input('Novo nome: ')
-            if nome:
-             novos_dados['Nome'] = nome
-             nascimento = input('Nova data de nascimento: ')
-             if nascimento:
-                novos_dados['Nascimento'] = nascimento
-             sexo = input('Novo sexo: ')
-             if sexo:
-                 novos_dados['Sexo'] = sexo
-             serie = input('Nova série: ')
-             if serie:
-                novos_dados['Serie'] = serie
-             cep = input('Novo CEP: ')
-             if cep:
-                novos_dados['CEP'] = cep
+        while validar_cpf(cpf) == False:
+            print("CPF incorreto ou não cadastrado \n Tente Novamente ou Digite 0 para retornar ao menu ")
+            cpf = input('Digite o CPF do aluno que deseja editar: ')
+            if cpf == '0':
+                print('\n \n \n \n \n')
+                menu()
+
+        novos_dados = {}
+        print('Deixe em branco os campos que não deseja alterar.')
+        nome = input('Novo nome: ')
+        if nome:
+            novos_dados['Nome'] = nome
+            nascimento = input('Nova data de nascimento: ')
+        if nascimento:
+            novos_dados['Nascimento'] = nascimento
+            sexo = input('Novo sexo: ')
+        if sexo:
+            novos_dados['Sexo'] = sexo
+            serie = input('Nova série: ')
+        if serie:
+            novos_dados['Serie'] = serie
+            cep = input('Novo CEP: ')
+        if cep:
+            novos_dados['CEP'] = cep
             mae = input('Nova mãe: ')
-            if mae:
-                novos_dados['Mae'] = mae
+        if mae:
+            novos_dados['Mae'] = mae
             pai = input('Novo pai: ')
-            if pai:
-                novos_dados['Pai'] = pai
+        if pai:
+            novos_dados['Pai'] = pai
             responsavel = input('Novo responsável: ')
-            if responsavel:
-                novos_dados['Responsavel'] = responsavel
+        if responsavel:
+            novos_dados['Responsavel'] = responsavel
             telresp = input('Novo telefone do responsável: ')
-            if telresp:
-                novos_dados['Telefone Responsavel'] = telresp
+        if telresp:
+            novos_dados['Telefone Responsavel'] = telresp
             necessidades = input('Novas necessidades: ')
-            if necessidades:
-                novos_dados['Necessidades'] = necessidades
-            editcad(cpf, novos_dados)
+        if necessidades:
+            novos_dados['Necessidades'] = necessidades
+        editcad(cpf, novos_dados)
     
      elif escolha == 3:
        ncpf = input("Digite o CPF do Novo Aluno : [Formato XXX.XXX.XXX-XX] :")
-       if validar_cpf(ncpf) == False:
-            print("CPF incorreto \n Digite qualquer coisa para Tentar novamente : ")
-            vai = input()
-            print('\n \n \n \n \n')
-            menu() 
+       while validar_cpf(ncpf) == False:
+            print("CPF incorreto \n Tente Novamente ou Digite 0 para retornar ao menu")
+            ncpf = input('Digite o CPF do novo aluno : ')
+            if ncpf == '0':
+                print('\n \n \n \n \n')
+                menu()
+       nasc = input("Digite a data de Nascimento do aluno : [Formato DD/MM/AAAA] :")
+       while validar_Nascimento(nasc) == False:
+            print("Data de Nascimento incorreto \n Tente Novamente ou Digite 0 para retornar ao menu ")
+            nasc = input('Digite a data de Nascimento do novo aluno : ')
+            if nasc == '0':
+                print('\n \n \n \n \n')
+                menu()
+       ncep = input("Digite o CEP do aluno : [Formato XXXXX-XXX] :")
+       while validar_cep(ncep) == False:
+            print("CEP Incorreto \n Tente Novamente ou Digite 0 para retornar ao menu ")
+            ncpe = input('Digite p CEP do novo aluno : ')
+            if ncpe == '0':
+                print('\n \n \n \n \n')
+                menu()
+       ntel = input("Digite o telefone do Responsavel : [Formato (XX)XXXXX-XXXX] :")
+       while validar_tel(ntel) == False:
+            print("Nº de telefone incorreto \n Tente Novamente ou Digite 0 para retornar ao menu ")
+            ntel = input('Digite o telefone do novo aluno : ')
+            if ntel == '0':
+                print('\n \n \n \n \n')
+                menu()
+         
         
        novo_aluno = Aluno(
        Nome = input('Digite o Nome do Novo Aluno : '),
-       Nascimento  =  input('Digite a data de nascimento : '),
+       Nascimento  =  nasc,
        Sexo  =  input('Digite o sexo : '),
        Serie  =  input('Digite a serie do aluno : '),
-       CEP  =  input('Digite o CEP : '),
+       CEP  =  ncep,
        CPF  =  ncpf,
        Mae =  input('Digite o nome da Mãe : '),
        Pai =  input('Digite o nome do Pai : '),
        Responsavel =  input('Digite o Nome do Responsavel : '),
-       TelResp =  input('Digite o número do Responsavel : '),
+       TelResp =  ntel,
        Necessidades =  input('Digite as Necessidades especiais do aluno, Alergias, Acessebilidades Necessarias Etc : '),
       ) 
        novocad(novo_aluno)
@@ -160,11 +205,12 @@ def menu():
         print("Para escolher o Aluno a ser removido do cadastro digite o cpf do aluno : \n")
         print("Seguindo no modelo Padrão Ex = 'XXX.XXX.XXX-XX' ")
         cpf = input("")
-        if validar_cpf(cpf) == False:
-            print("CPF incorreto ou não cadastrado \n Digite qualquer coisa para retornar ao menu : ")
-            vai = input()
-            print('\n \n \n \n \n')
-            menu() 
+        while validar_cpf(cpf) == False:
+            print("CPF incorreto \n Tente Novamente ou Digite 0 para retornar ao menu ")
+            cpf = input('Digite a data de Nascimento do novo aluno : ')
+            if cpf == '0':
+                print('\n \n \n \n \n')
+                menu() 
         else:
             remocad(cpf)
     
