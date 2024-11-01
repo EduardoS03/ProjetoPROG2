@@ -1,22 +1,79 @@
-class Aluno:                                                                #Eduardo Sochodolak, Bernardo Kuster Ragugnetti e Alexsandro Lemos 2º "B"
-   def __init__(self,Nome,Nascimento,Sexo,Serie,CEP,CPF,Mae,Pai,Responsavel,TelResp,Necessidades):
-      self.Nome = Nome
-      self.Nascimento = Nascimento
-      self.Sexo = Sexo
-      self.Serie = Serie
-      self.CEP = CEP
-      self.CPF = CPF
-      self.Mae = Mae
-      self.Pai = Pai
-      self.Responsavel = Responsavel
-      self.TelResp = TelResp
-      self.Necessidades = Necessidades
+import pandas as pd
 
-   def ver(self):
-      print(f"Informações do Aluno: \n Nome: {self.Nome} \n Data de Nascimento: {self.Nascimento} \n")
-      print(f"Sexo: {self.Sexo} \n Série: {self.Serie} \n CEP: {self.CEP} CPF: {self.CPF} \n")
-      print(f"Mãe: {self.Mae} \n Pai: {self.Pai} \n Responsável: {self.Responsavel} \n")
-      print(f"Telefone do Responsável: {self.TelResp} \n Necessidades: {self.Necessidades}\n")
+class Aluno:
+    def __init__(self, Nome, Nascimento, Sexo, Serie, CEP, CPF, Mae, Pai, Responsavel, TelResp, Necessidades):
+        self.Nome = Nome
+        self.Nascimento = Nascimento
+        self.Sexo = Sexo
+        self.Serie = Serie
+        self.CEP = CEP
+        self.CPF = CPF
+        self.Mae = Mae
+        self.Pai = Pai
+        self.Responsavel = Responsavel
+        self.TelResp = TelResp
+        self.Necessidades = Necessidades
+
+    def ver(self):
+        print(f"Informações do Aluno: \n Nome: {self.Nome} \n Data de Nascimento: {self.Nascimento} \n")
+        print(f"Sexo: {self.Sexo} \n Série: {self.Serie} \n CEP: {self.CEP} CPF: {self.CPF} \n")
+        print(f"Mãe: {self.Mae} \n Pai: {self.Pai} \n Responsável: {self.Responsavel} \n")
+        print(f"Telefone do Responsável: {self.TelResp} \n Necessidades: {self.Necessidades}\n")
+
+
+def salvar_alunos_csv(lista_alunos, nome_arquivo="alunos.csv"):
+    dados = [{
+        "Nome": aluno.Nome,
+        "Nascimento": aluno.Nascimento,
+        "Sexo": aluno.Sexo,
+        "Serie": aluno.Serie,
+        "CEP": aluno.CEP,
+        "CPF": aluno.CPF,
+        "Mae": aluno.Mae,
+        "Pai": aluno.Pai,
+        "Responsavel": aluno.Responsavel,
+        "TelResp": aluno.TelResp,
+        "Necessidades": aluno.Necessidades
+    } for aluno in lista_alunos]
+    
+    df = pd.DataFrame(dados)
+    df.to_csv(nome_arquivo, index=False)
+    print(f"Dados salvos no arquivo {nome_arquivo}.")
+
+
+Aluno1 = Aluno(
+    Nome='João da Silva', Nascimento='15/03/2010', Sexo='Masculino',
+    Serie='9º Ano "A" ', CEP='12345-678', CPF='111.222.333-00',
+    Mae='Maria Oliveira', Pai='José da Silva', Responsavel='Ana Souza',
+    TelResp='(11) 98765-4321', Necessidades='Nenhuma'
+)
+
+Aluno2 = Aluno(
+    Nome='Marina Angelo', Nascimento='15/03/2015', Sexo='Feminino',
+    Serie='4º ano ‘B’', CEP='12345-678', CPF='123.456.789-00',
+    Mae='Ana Angelo', Pai='João Angelo', Responsavel='Ana Angelo',
+    TelResp='(11) 94515-4321', Necessidades='Acompanhamento devido ao Espectro Autista'
+)
+
+Aluno3 = Aluno(
+    Nome='Pedro Santos', Nascimento='10/08/2009', Sexo='Masculino',
+    Serie='1º Serie ‘A’', CEP='54321-987', CPF='987.654.321-00',
+    Mae='Carla Santos', Pai='Marcos Santos', Responsavel='Yuri Santos ("Avô")',
+    TelResp='(21) 99999-8888', Necessidades='Alergia a amendoim'
+)
+
+
+lista_padrao = [Aluno1,Aluno2,Aluno3]
+
+def carregar_alunos_csv(nome_arquivo="alunos.csv"):
+    try:
+        df = pd.read_csv(nome_arquivo)
+        lista_alunos = [Aluno(**dados) for dados in df.to_dict(orient="records")]
+        print(f"{len(lista_alunos)} alunos carregados do arquivo {nome_arquivo}.")
+        return lista_alunos
+    except FileNotFoundError:
+        print(f"O arquivo {nome_arquivo} não foi encontrado. Iniciando com lista de alunos padrão")
+        return lista_padrao
 
 def validar_cpf(cpf):
     if len(cpf) != 14:
@@ -48,56 +105,41 @@ def validar_tel(TelResp):
 def validar_Nascimento(nasc):
     if len(nasc) != 10:
         return False
-    if nasc[2] != '/' or nasc[5] != '/' or nasc:
+    if nasc[2] != '/' or nasc[5] != '/':
         return False
     else:
         return True
 
+def novocad(aluno):
+    lista_alunos.append(aluno)
+    salvar_alunos_csv(lista_alunos)
+    print('\n \n \n \n Para voltar ao menu digite qualquer coisa')
+    vai = input()
+    print('\n \n \n \n \n')
+    menu()
 
-Aluno1 = Aluno(
-   Nome = 'João da Silva',
-   Nascimento = '15/03/2010',
-   Sexo = 'Masculino',
-   Serie = '9º Ano "A" ',
-   CEP = '12345-678',
-   CPF = '111.222.333-00',
-   Mae = 'Maria Oliveira',
-   Pai = 'José da Silva',
-   Responsavel = 'Ana Souza',
-   TelResp = '(11) 98765-4321',
-   Necessidades = 'Nenhuma',
-)
-Aluno2 = Aluno(
-   Nome = 'Marina Angelo',
-   Nascimento  =  '15/03/2015',
-   Sexo  =  'Feminino',
-   Serie  =  '4º ano ‘B’' ,
-   CEP  =  '12345-678',
-   CPF  =  '123.456.789-00',
-   Mae =  'Ana Angelo',
-   Pai =  'João Angelo',
-   Responsavel =  'Ana Angelo' ,
-   TelResp =  '(11) 94515-4321',
-   Necessidades =  'Acompanhamento devido ao Espectro Autista'
+def editcad(cpf, novos_dados):
+    for aluno in lista_alunos:
+        if aluno.CPF == cpf:
+            aluno.__dict__.update(novos_dados)
+            break
+    salvar_alunos_csv(lista_alunos)
+    print('\n \n \n \n Para voltar ao menu digite qualquer coisa')
+    vai = input()
+    print('\n \n \n \n \n')
+    menu()
 
- )
-Aluno3 = Aluno(
-   Nome = 'Pedro Santos',
-   Nascimento  =  '10/08/2009',
-   Sexo  =  'Masculino',
-   Serie  =  '1º Serie ‘A’' ,
-   CEP  =  '54321-987',
-   CPF  =  '987.654.321-00',
-   Mae =  'Carla Santos',
-   Pai =  'Marcos Santos',
-   Responsavel =  'Yuri Santos ("Avô")' ,
-   TelResp =  '(21) 99999-8888',
-   Necessidades =  'Alergia a amendoim'
-)
-
-lista_alunos = [Aluno1, Aluno2, Aluno3]
-
-
+def remocad(cpf):
+    for aluno in lista_alunos:
+        if aluno.CPF == cpf:
+            lista_alunos.remove(aluno)
+            break
+    salvar_alunos_csv(lista_alunos)
+    print('\n \n \n \n Para voltar ao menu digite qualquer coisa')
+    vai = input()
+    print('\n \n \n \n \n')
+    menu()
+    
 def menu():
      print('='*70,"\n \n \n", ' '*28, "Escola Municipal \n",' '*20, "Profº Bernardo Lemos Sochodolak \n \n")
      print(' '*26,'-'*24, "\n", ' '*25, "| 1 - Ver Cadastro     |")
@@ -107,12 +149,12 @@ def menu():
      print( "\n", ' '*25, "| 5 - Saiba Mais       |")
      print( "\n", ' '*25, "| 6 - Fechar           |")
      print(' '*26,'-'*24," \n \n \n", " "*15)
-     escolha = int(input(""))
-
-     if escolha == 1:
+     escolha = input("")
+     
+     if escolha == '1':
         vercad()
 
-     elif escolha == 2:
+     elif escolha == '2':
         cpf = input('Digite o CPF do aluno que deseja editar: ')
         while validar_cpf(cpf) == False:
             print("CPF incorreto ou não cadastrado \n Tente Novamente ou Digite 0 para retornar ao menu ")
@@ -149,13 +191,13 @@ def menu():
             novos_dados['Responsavel'] = responsavel
             telresp = input('Novo telefone do responsável: ')
         if telresp:
-            novos_dados['Telefone Responsavel'] = telresp
+            novos_dados['TelResp'] = telresp
             necessidades = input('Novas necessidades: ')
         if necessidades:
             novos_dados['Necessidades'] = necessidades
         editcad(cpf, novos_dados)
     
-     elif escolha == 3:
+     elif escolha == '3':
        ncpf = input("Digite o CPF do Novo Aluno : [Formato XXX.XXX.XXX-XX] :")
        while validar_cpf(ncpf) == False:
             print("CPF incorreto \n Tente Novamente ou Digite 0 para retornar ao menu")
@@ -173,8 +215,8 @@ def menu():
        ncep = input("Digite o CEP do aluno : [Formato XXXXX-XXX] :")
        while validar_cep(ncep) == False:
             print("CEP Incorreto \n Tente Novamente ou Digite 0 para retornar ao menu ")
-            ncpe = input('Digite p CEP do novo aluno : ')
-            if ncpe == '0':
+            ncep = input('Digite p CEP do novo aluno : ')
+            if ncep == '0':
                 print('\n \n \n \n \n')
                 menu()
        ntel = input("Digite o telefone do Responsavel : [Formato (XX)XXXXX-XXXX] :")
@@ -201,7 +243,7 @@ def menu():
       ) 
        novocad(novo_aluno)
 
-     elif escolha == 4:
+     elif escolha == '4':
         print("Para escolher o Aluno a ser removido do cadastro digite o cpf do aluno : \n")
         print("Seguindo no modelo Padrão Ex = 'XXX.XXX.XXX-XX' ")
         cpf = input("")
@@ -214,10 +256,11 @@ def menu():
         else:
             remocad(cpf)
     
-     elif escolha == 5:
+     elif escolha == '5':
         saiba()
 
-     elif escolha == 6:
+     elif escolha == '6':
+        salvar_alunos_csv(lista_alunos)
         exit()
 
      else:
@@ -234,31 +277,17 @@ def vercad():
      print('\n \n \n \n \n')
      menu() 
 
-def editcad(cpf, novos_dados):
+
+def remocad(cpf):
     for aluno in lista_alunos:
         if aluno.CPF == cpf:
-            aluno.__dict__.update(novos_dados)
+            lista_alunos.remove(aluno)       
             break
+    salvar_alunos_csv(lista_alunos)           
     print('\n \n \n \n Para voltar ao menu digite qualquer coisa')
     vai = input()
     print('\n \n \n \n \n')
     menu()
-
-def novocad(aluno):
-   lista_alunos.append(aluno)
-   print('\n \n \n \n Para voltar ao menu digite qualquer coisa')
-   vai = input()
-   print('\n \n \n \n \n')
-   menu()
-
-def remocad(cpf):
-      for aluno in lista_alunos:
-        if aluno.CPF == cpf:
-            lista_alunos.remove(aluno)
-            break
-      print('\n \n \n \n Para voltar ao menu digite qualquer coisa')
-      print('\n \n \n \n \n')
-      menu()
 
 def saiba():
     print("Escola Profº Bernardo Lemos Sochodolak \n Um exemplo de Escola Ficticia Baseada nos 3 Nomes dos intregantes do Grupo, Alexsandro Lemos, Bernardo Kuster Ragugnetti  e Eduardo Sochodolak")
@@ -269,4 +298,8 @@ def saiba():
     print('\n \n \n \n \n')
     menu()
 
-menu()
+
+lista_alunos = carregar_alunos_csv()
+salvar_alunos_csv(lista_alunos)  
+
+menu() 
