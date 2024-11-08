@@ -21,10 +21,10 @@ class Aluno:
         print(f"Telefone do Responsável: {self.TelResp} \n Necessidades: {self.Necessidades}\n")
 
 
-def salvar_alunos_csv(lista_alunos, nome_arquivo="alunos.csv"):
+def salvar_alunos_csv(lista_alunos, nomi="alunos.csv"):
     dados = [{
         "Nome": aluno.Nome,
-        "Nascimento": aluno.Nascimento,
+        "Nascimento": aluno.Nascimento,        
         "Sexo": aluno.Sexo,
         "Serie": aluno.Serie,
         "CEP": aluno.CEP,
@@ -37,9 +37,8 @@ def salvar_alunos_csv(lista_alunos, nome_arquivo="alunos.csv"):
     } for aluno in lista_alunos]
     
     df = pd.DataFrame(dados)
-    df.to_csv(nome_arquivo, index=False)
-    print(f"Dados salvos no arquivo {nome_arquivo}.")
-
+    df.to_csv(nomi, index=False)
+    print(f"Dados salvos no arquivo {nomi}.")
 
 Aluno1 = Aluno(
     Nome='João da Silva', Nascimento='15/03/2010', Sexo='Masculino',
