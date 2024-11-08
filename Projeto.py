@@ -64,14 +64,14 @@ Aluno3 = Aluno(
 
 lista_padrao = [Aluno1,Aluno2,Aluno3]
 
-def carregar_alunos_csv(nome_arquivo="alunos.csv"):
+def carregar_alunos_csv(nomi="alunos.csv"):
     try:
-        df = pd.read_csv(nome_arquivo)
-        lista_alunos = [Aluno(**dados) for dados in df.to_dict(orient="records")]
-        print(f"{len(lista_alunos)} alunos carregados do arquivo {nome_arquivo}.")
+        df = pd.read_csv(nomi)
+        lista_alunos = [Aluno(**dados) for dados in df.to_dict(orient="records")] 
+        print(f"{len(lista_alunos)} alunos carregados do arquivo {nomi}.") 
         return lista_alunos
     except FileNotFoundError:
-        print(f"O arquivo {nome_arquivo} não foi encontrado. Iniciando com lista de alunos padrão")
+        print(f"O arquivo {nomi} não foi encontrado. Iniciando com lista de alunos padrão")
         return lista_padrao
 
 def validar_cpf(cpf):
